@@ -12,7 +12,6 @@ import CanvasLoader from '../Loader'
 
 const Sphere = ({imgUrl, objColor, func}) => {
   const [decal] = useTexture([imgUrl])
-  console.log(decal);
   return (
     <Float speed={1.74} rotationIntensity={1} floatIntensity={2}>
       <ambientLight intensity={0.25}/>
