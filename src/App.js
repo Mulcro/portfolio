@@ -1,5 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
-import {useRef, useEffect} from 'react';
+import {useRef, useEffect, useMemo} from 'react';
 import {About, Contact, Experience, Hero, Navbar, Tech, Works, StarsCanvas} from './components';
 
 function App() {
@@ -25,7 +25,7 @@ function App() {
     }
   }
 
-  const throttledUpdateMousePosition = throttle(updateMousePosition,100);
+  const throttledUpdateMousePosition = useMemo(throttle(updateMousePosition,100),[]);
 
   useEffect(() => {
     if(!heroRef.current) return;
