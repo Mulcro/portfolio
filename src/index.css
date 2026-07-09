@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700&display=swap");
 
 @tailwind base;
 @tailwind components;
@@ -8,9 +8,18 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
   scroll-behavior: smooth;
   color-scheme: dark;
+}
+
+body {
+  background-color: #030304;
+  color: #f2f2f6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: "Space Grotesk", sans-serif;
 }
 
 .hash-span {
@@ -19,102 +28,92 @@
   display: block;
 }
 
-.black-gradient {
-  background: #000000; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to right,
-    #434343,
-    #000000
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+/* cursor-tracked ambient glow, driven by --x/--y set on mousemove */
+.cursor-glow {
+  position: relative;
 }
 
-.violet-gradient {
-  background: #804dee;
-  background: linear-gradient(-90deg, #804dee 0%, rgba(60, 51, 80, 0) 100%);
-  background: -webkit-linear-gradient(
-    -90deg,
-    #804dee 0%,
-    rgba(60, 51, 80, 0) 100%
+.cursor-glow::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(
+    600px circle at var(--x, 50vw) var(--y, 50vh),
+    rgba(139, 92, 246, 0.12),
+    transparent 70%
   );
+  transition: background 0.2s ease-out;
 }
 
-.green-pink-gradient {
-  background: "#00cea8";
-  background: linear-gradient(90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-  background: -webkit-linear-gradient(-90.13deg, #00cea8 1.9%, #bf61ff 97.5%);
-}
-
-.orange-text-gradient {
-  background: #f12711; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #f12711,
-    #f5af19
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #f12711,
-    #f5af19
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.gradient-text {
+  background: linear-gradient(135deg, #8b5cf6 0%, #22d3ee 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.green-text-gradient {
-  background: #11998e; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #11998e,
-    #38ef7d
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+.gradient-text-animated {
+  background: linear-gradient(90deg, #8b5cf6, #22d3ee, #8b5cf6);
+  background-size: 200% auto;
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
+  animation: text-shimmer 6s ease-in-out infinite;
 }
 
+@keyframes text-shimmer {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-border {
+  position: relative;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#0b0b12, #0b0b12) padding-box,
+    linear-gradient(135deg, rgba(139, 92, 246, 0.6), rgba(34, 211, 238, 0.6)) border-box;
+}
+
+/* tag pill colors used by project cards */
 .blue-text-gradient {
-  /* background: -webkit-linear-gradient(#eee, #333); */
-  background: #56ccf2; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #2f80ed,
-    #56ccf2
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to top, #2f80ed, #56ccf2);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
-
+.green-text-gradient {
+  background: linear-gradient(to top, #11998e, #38ef7d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 .pink-text-gradient {
-  background: #ec008c; /* fallback for old browsers */
-  background: -webkit-linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(
-    to top,
-    #ec008c,
-    #fc6767
-  ); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  background: linear-gradient(to top, #ec008c, #fc6767);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.purple-text-gradient {
+  background: linear-gradient(to top, #8b5cf6, #c4b5fd);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.red-text-gradient {
+  background: linear-gradient(to top, #f12711, #f5af19);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.yellow-text-gradient {
+  background: linear-gradient(to top, #f7971e, #ffd200);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.brown-text-gradient {
+  background: linear-gradient(to top, #8d6e63, #d7ccc8);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-/* canvas- styles */
+/* canvas loading spinner */
 .canvas-loader {
   font-size: 10px;
   width: 1em;
@@ -126,33 +125,6 @@
   transform: translateZ(0);
 }
 
-.hero {
-  /* width: 100%;
-  height: 100vh; */
-  background: radial-gradient(circle farthest-side at var(--x,100px) var(--y,100px), #0d426b  0% , transparent 100%);
-            /* radial-gradient(ellipse at 100px, #2d1263, transparent); */
-   /* background-size: 800% 800%;
- */
-  -webkit-animation: heroAnimation 13s ease infinite;
-  -moz-animation: heroAnimation 13s ease infinite;
-  animation: heroAnimation 13s ease infinite; 
-}
-
-@-webkit-keyframes heroAnimation {
-  0%{background-position:2% 0%}
-  50%{background-position:99% 100%}
-  100%{background-position:2% 0%}
-}
-@-moz-keyframes heroAnimation {
-  0%{background-position:2% 0%}
-  50%{background-position:99% 100%}
-  100%{background-position:2% 0%}
-}
-@keyframes heroAnimation {
-  0%{background-position:2% 0%}
-  50%{background-position:99% 100%}
-  100%{background-position:2% 0%}
-}
 @keyframes mulShdSpin {
   0%,
   100% {
@@ -228,4 +200,10 @@
       -1.8em 1.8em 0 0em rgba(255, 255, 255, 0.5),
       -2.6em 0em 0 0em rgba(255, 255, 255, 0.7), -1.8em -1.8em 0 0em #ffffff;
   }
+}
+
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, -6%) scale(1.08); }
+  66% { transform: translate(-3%, 4%) scale(0.95); }
 }

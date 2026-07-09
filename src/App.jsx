@@ -1,35 +1,77 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useRef, useEffect, useMemo, useCallback, useState } from 'react';
+import {
+  About,
+  Contact,
+  Experience,
+  Footer,
+  Hero,
+  Navbar,
+  Tech,
+  Works,
+} from './components';
+import AuroraBackground from './components/ui/AuroraBackground';
+import SplashScreen from './components/SplashScreen';
 
-function App() {
-  const [count, setCount] = useState(0)
-
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function throttle(fn, delay) {
+  let timer = null;
+  return function (...args) {
+    if (timer === null) {
+      fn(...args);
+      timer = setTimeout(() => {
+        timer = null;
+      }, delay);
+    }
+  };
 }
 
-export default App
+function App() {
+  const rootRef = useRef(null);
+  const [showSplash, setShowSplash] = useState(true);
+  const [splashActive, setSplashActive] = useState(true);
+
+  const updateCursorPosition = useCallback((e) => {
+    if (!rootRef.current) return;
+    const { clientX: x, clientY: y } = e;
+    rootRef.current.style.setProperty('--x', `${x}px`);
+    rootRef.current.style.setProperty('--y', `${y}px`);
+  }, []);
+
+  const throttledUpdateCursorPosition = useMemo(
+    () => throttle(updateCursorPosition, 100),
+    [updateCursorPosition]
+  );
+
+  useEffect(() => {
+    window.addEventListener('mousemove', throttledUpdateCursorPosition);
+
+    updateCursorPosition({
+      clientX: window.innerWidth / 2,
+      clientY: window.innerHeight / 2,
+    });
+
+    return () =>
+      window.removeEventListener('mousemove', throttledUpdateCursorPosition);
+  }, [throttledUpdateCursorPosition, updateCursorPosition]);
+
+  return (
+    <div ref={rootRef} className="cursor-glow relative z-0 bg-bg">
+      {showSplash && (
+        <SplashScreen
+          onReveal={() => setSplashActive(false)}
+          onFinish={() => setShowSplash(false)}
+        />
+      )}
+      <AuroraBackground />
+      <Navbar />
+      <Hero splashActive={splashActive} />
+      <About />
+      <Experience />
+      <Tech />
+      <Works />
+      <Contact />
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
