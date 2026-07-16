@@ -8,11 +8,10 @@ import { reactjs, nodejs, python, docker, mongodb, git, tailwind } from '../asse
 
 const HERO_ICONS = [reactjs, nodejs, python, docker, mongodb, git, tailwind];
 const NAME = 'Mulero Alamou';
-const SPLASH_SIZE_CLASSES = 'text-[clamp(28px,6vw,64px)]';
 const HERO_SIZE_CLASSES =
   'lg:text-[76px] sm:text-[58px] xs:text-[48px] text-[38px] lg:leading-[90px]';
 
-const Hero = ({ splashActive }) => {
+const Hero = () => {
   return (
     <section className="relative w-full h-screen mx-auto overflow-hidden">
       <FloatingBadges icons={HERO_ICONS} glow className="w-full h-full" />
@@ -24,42 +23,8 @@ const Hero = ({ splashActive }) => {
           Software Engineer
         </p>
 
-        <h1 className="w-full flex justify-center">
-          <motion.span
-            layout
-            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className={
-              splashActive
-                ? 'fixed inset-0 z-[101] flex items-center justify-center pointer-events-none px-6'
-                : 'relative flex flex-wrap justify-center'
-            }
-          >
-            {NAME.split('').map((char, i) =>
-              char === ' ' ? (
-                <span
-                  key={i}
-                  className={`inline-block ${splashActive ? SPLASH_SIZE_CLASSES : HERO_SIZE_CLASSES}`}
-                  style={{ width: '0.3em' }}
-                />
-              ) : (
-                <motion.span
-                  key={i}
-                  initial={{ y: '110%', opacity: 0 }}
-                  animate={{ y: '0%', opacity: 1 }}
-                  transition={{
-                    delay: i * 0.035,
-                    duration: 0.5,
-                    ease: [0.16, 1, 0.3, 1],
-                  }}
-                  className={`inline-block font-display font-bold gradient-text ${
-                    splashActive ? SPLASH_SIZE_CLASSES : HERO_SIZE_CLASSES
-                  }`}
-                >
-                  {char}
-                </motion.span>
-              )
-            )}
-          </motion.span>
+        <h1 className={`w-full flex justify-center flex-wrap ${HERO_SIZE_CLASSES} font-display font-bold gradient-text`}>
+          {NAME}
         </h1>
 
         <p className={`${styles.heroSubText} mt-6 max-w-xl`}>

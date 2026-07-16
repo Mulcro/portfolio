@@ -27,7 +27,6 @@ function throttle(fn, delay) {
 function App() {
   const rootRef = useRef(null);
   const [showSplash, setShowSplash] = useState(true);
-  const [splashActive, setSplashActive] = useState(true);
 
   const updateCursorPosition = useCallback((e) => {
     if (!rootRef.current) return;
@@ -57,13 +56,12 @@ function App() {
     <div ref={rootRef} className="cursor-glow relative z-0 bg-bg">
       {showSplash && (
         <SplashScreen
-          onReveal={() => setSplashActive(false)}
           onFinish={() => setShowSplash(false)}
         />
       )}
       <AuroraBackground />
       <Navbar />
-      <Hero splashActive={splashActive} />
+      <Hero />
       <About />
       <Experience />
       <Tech />
