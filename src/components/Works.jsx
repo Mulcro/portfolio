@@ -1,80 +1,80 @@
-import React from 'react'
-import {motion} from 'framer-motion'
-import {styles} from '../style'
-import SectionWrapper from './hoc/SectionWrapper'
-import {webb} from '../assets'
-import {fadeIn, textVariant} from '../utils/motion'
-import {projects} from '../constants'
-import Tilt from 'react-parallax-tilt'
+import React from 'react';
+import { motion } from 'framer-motion';
+import { styles } from '../style';
+import SectionWrapper from './hoc/SectionWrapper';
+import { webb } from '../assets';
+import { fadeIn, textVariant } from '../utils/motion';
+import { projects } from '../constants';
+import SpotlightCard from './ui/SpotlightCard';
+import FloatingBadges from './ui/FloatingBadges';
+import { threejs, heroku, docker } from '../assets';
 
-const ProjectCard = ({project,index}) => {
+const WORK_ICONS = [threejs, heroku, docker];
+
+const ProjectCard = ({ project, index }) => {
   return (
-    <motion.div
-      variants={fadeIn("right","",index*0.8,1)}
-    >
-      <Tilt 
-        className="w-[340px] bg-gradient-to-b from-[#01B3CC] to-indigo-700 via-50% p-[3px] rounded-[20px] shadow-card"
-        options={{
-          max:45,
-          scale:1,
-          speed:450
-        }}
-      >
-        <div className=" relative bg-tertiary rounded-2xl p-5 min-w-[320px] flex flex-wrap items-center flex-col">
-          <img src={project.image} alt={project.name} className='w-full h-full object-cover rounded-2xl'/>
-
-          <div className="absolute top-0  flex jusifty-end m-3 card-img_hover">    
-            <div 
-              onClick={() => window.open(project.source_code_link,"_blank")}
-              className='black-gradient w-10 h-10 rounded-full flex justify-center items-center cursor-pointer  mx-1'  
-            >
-              <img src={webb} alt="link to website" className='w-2/3 h-2/3 object-contain'/>
-            </div>
-          </div>        
-
-          <div className='mt-5'>
-            <h3 className='text-white font-bold text-[24px]'>{project.name}</h3>
-            <p className='mt-2 text-secondary text-[14px]'>{project.description}</p>
-          </div>        
-          
-          <div className='mt-5 flex flex-wrap gap-2'>
-            {project.tags.map((tag,index) => (
-              <p key={tag.name} className={`text-[14px] ${tag.color}`}>
-                #{tag.name}
-              </p>
-            ))}
+    <motion.div variants={fadeIn('right', 'tween', index * 0.15, 0.75)} className="w-[340px]">
+      <SpotlightCard className="p-5 min-w-[320px]">
+        <div className="relative rounded-xl overflow-hidden">
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-[200px] object-cover rounded-xl"
+          />
+          <div
+            onClick={() => window.open(project.source_code_link, '_blank', 'noopener,noreferrer')}
+            className="absolute top-3 right-3 bg-bg/80 backdrop-blur w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:bg-accent-gradient transition-colors duration-300"
+          >
+            <img src={webb} alt="link to project" className="w-1/2 h-1/2 object-contain" />
           </div>
         </div>
-      </Tilt>
+
+        <div className="mt-5">
+          <h3 className="text-foreground font-display font-semibold text-[20px]">{project.name}</h3>
+          <p className="mt-2 text-muted text-[14px] leading-relaxed">{project.description}</p>
+        </div>
+
+        <div className="mt-4 flex flex-wrap gap-2">
+          {project.tags.map((tag) => (
+            <p key={tag.name} className={`text-[13px] ${tag.color}`}>
+              #{tag.name}
+            </p>
+          ))}
+        </div>
+      </SpotlightCard>
     </motion.div>
-  )
-}
+  );
+};
+
 const Works = () => {
   return (
-    <>
-      <motion.div
-        variants={textVariant()}
-      >
-        <p className={styles.sectionSubText}>My Work</p>
-        <h2 className={styles.sectionHeadText}>Projects.</h2>
-      </motion.div>
-      <div className="w-full flex">
-        <motion.p
-          variants={fadeIn("","", 0.85, 1)}
-          className='mt-3 text-secondary text-[17px] max-w-3xl leading-[30px]'
-        >
-          The projects bellow are some of the projects I have worked on. Some of them are personal projects, while others are projects I have worked on with a team. I have experience working with a variety of technologies, including React, Node.js, Express, MongoDB, and more. I am always looking for new projects to work on, so if you have a project you would like to work on, feel free to reach out to me.
+    <div className="relative">
+      <FloatingBadges icons={WORK_ICONS} />
 
-        </motion.p>
-      </div>
+      <div className="relative z-10">
+        <motion.div variants={textVariant()}>
+          <p className={styles.sectionSubText}>My Work</p>
+          <h2 className={styles.sectionHeadText}>Projects.</h2>
+        </motion.div>
 
-      <div className="mt-20 flex flex-wrap items-center gap-6">
-        {projects.map((project, index) => (
+        <div className="w-full flex">
+          <motion.p
+            variants={fadeIn('', 'tween', 0.1, 1)}
+            className="mt-3 text-muted text-[17px] max-w-3xl leading-[30px]"
+          >
+            A selection of projects I&apos;ve worked on, some solo and some with a
+            team, spanning React, Node.js, Flask, and a handful of data-driven tools.
+          </motion.p>
+        </div>
+
+        <div className="mt-20 flex flex-wrap items-stretch gap-6">
+          {projects.map((project, index) => (
             <ProjectCard key={`project-${index}`} index={index} project={project} />
-        ))}
+          ))}
+        </div>
       </div>
-    </>
-  )
-}
+    </div>
+  );
+};
 
-export default SectionWrapper(Works,"")
+export default SectionWrapper(Works, 'work');
