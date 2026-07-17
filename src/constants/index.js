@@ -19,7 +19,6 @@ import {
   github,
   linkedin,
   gmail,
-  instagram,
   postgres,
   python,
   heroku,
@@ -394,13 +393,6 @@ const contacts = [
     value: "https://github.com/Mulcro",
     isEmail: false,
     color: '#0E58E2'
-  },
-  {
-    title: "Instagram",
-    icon: instagram,
-    value: "https://www.instagram.com/mulerro/",
-    isEmail: false,
-    color: '#931ACC'
   }
 ]
 
