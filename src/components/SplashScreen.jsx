@@ -1,22 +1,34 @@
 import React, { useEffect, useState } from 'react';
-import { motion } from 'framer-motion';
+import { AnimatePresence, motion } from 'framer-motion';
 
-const HOLD_MS = 2000;
+const EASE = [0.16, 1, 0.3, 1];
+const GREETINGS = ['Hello', 'Bonjour', 'Hola', 'Bawo', 'こんにちは'];
+const GREETING_INTERVAL_MS = 1000;
+const GREETING_TRANSITION_SECONDS = 0.35;
+const HOLD_MS = GREETINGS.length * GREETING_INTERVAL_MS;
 const EXIT_SECONDS = 0.9;
-const NAME = 'Mulero Alamou';
 const SPLASH_SIZE_CLASSES = 'text-[clamp(28px,6vw,64px)]';
 
-const SplashScreen = ({ onReveal, onFinish }) => {
+const SplashScreen = ({ onFinish }) => {
   const [phase, setPhase] = useState('hold');
+  const [greetingIndex, setGreetingIndex] = useState(0);
 
   useEffect(() => {
     document.body.style.overflow = 'hidden';
-    const timer = setTimeout(() => {
+
+    const cycleTimer = setInterval(() => {
+      setGreetingIndex((i) => Math.min(i + 1, GREETINGS.length - 1));
+    }, GREETING_INTERVAL_MS);
+
+    const holdTimer = setTimeout(() => {
       setPhase('exit');
-      onReveal();
     }, HOLD_MS);
-    return () => clearTimeout(timer);
-  }, [onReveal]);
+
+    return () => {
+      clearInterval(cycleTimer);
+      clearTimeout(holdTimer);
+    };
+  }, []);
 
   return (
     <motion.div
@@ -31,31 +43,22 @@ const SplashScreen = ({ onReveal, onFinish }) => {
         }
       }}
     >
-      <motion.div layout transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }} className="flex flex-wrap justify-center px-6">
-        {NAME.split('').map((char, i) =>
-          char === ' ' ? (
-            <span
-              key={i}
-              className={`inline-block ${SPLASH_SIZE_CLASSES}`}
-              style={{ width: '0.3em' }}
-            />
-          ) : (
-            <motion.span
-              key={i}
-              initial={{ y: '110%', opacity: 0 }}
-              animate={{ y: '0%', opacity: 1 }}
-              transition={{
-                delay: i * 0.035,
-                duration: 0.5,
-                ease: [0.16, 1, 0.3, 1],
-              }}
-              className={`inline-block font-display font-bold gradient-text ${SPLASH_SIZE_CLASSES}`}
-            >
-              {char}
-            </motion.span>
-          )
-        )}
-      </motion.div>
+      <div className="relative overflow-hidden px-6 py-2">
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={GREETINGS[greetingIndex]}
+            initial={{ y: '60%', opacity: 0 }}
+            animate={{ y: '0%', opacity: 1 }}
+            exit={{ y: '-60%', opacity: 0 }}
+            transition={{ duration: GREETING_TRANSITION_SECONDS, ease: EASE }}
+            className="inline-block"
+          >
+            <span className={`inline-block font-display font-bold gradient-text ${SPLASH_SIZE_CLASSES}`}>
+              {GREETINGS[greetingIndex]}
+            </span>
+          </motion.div>
+        </AnimatePresence>
+      </div>
     </motion.div>
   );
 };

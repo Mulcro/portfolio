@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { styles } from '../style';
 import MagnetButton from './ui/MagnetButton';
 import FloatingBadges from './ui/FloatingBadges';
+import RevolvingRole from './ui/RevolvingRole';
 import { reactjs, nodejs, python, docker, mongodb, git, tailwind } from '../assets';
 
 const HERO_ICONS = [reactjs, nodejs, python, docker, mongodb, git, tailwind];
@@ -19,9 +20,7 @@ const Hero = () => {
       <div
         className={`${styles.paddingX} relative max-w-5xl mx-auto h-full flex flex-col justify-center items-center text-center`}
       >
-        <p className="text-accent-2 uppercase tracking-[0.3em] text-[13px] font-medium mb-4">
-          Software Engineer
-        </p>
+        <RevolvingRole />
 
         <h1 className={`w-full flex justify-center flex-wrap ${HERO_SIZE_CLASSES} font-display font-bold gradient-text`}>
           {NAME}
