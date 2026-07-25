@@ -61,12 +61,14 @@ function App() {
       )}
       <AuroraBackground />
       <Navbar />
-      <Hero />
-      <About />
-      <Experience />
-      <Tech />
-      <Works />
-      <Contact />
+      <main>
+        <Hero />
+        <About />
+        <Experience />
+        <Tech />
+        <Works />
+        <Contact />
+      </main>
       <Footer />
     </div>
   );

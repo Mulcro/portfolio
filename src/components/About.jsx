@@ -14,7 +14,7 @@ const ServiceCard = ({ index, title, icon }) => {
   return (
     <motion.div variants={fadeIn('right', 'tween', 0.15 * index, 0.75)} className="xs:w-[250px] w-full">
       <SpotlightCard className="min-h-[260px] flex flex-col justify-evenly items-center py-10 px-8">
-        <img src={icon} alt="icon" className="w-16 h-16 object-contain" />
+        <img src={icon} alt={`${title} service icon`} className="w-16 h-16 object-contain" />
         <h3 className="text-foreground text-[18px] font-display font-semibold text-center mt-4">
           {title}
         </h3>

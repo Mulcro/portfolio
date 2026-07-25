@@ -31,30 +31,50 @@ const Contact = () => {
 
         <motion.div
           variants={fadeIn('up', 'tween', 0.2, 1)}
-          className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 max-w-xl w-full"
+          className="flex flex-wrap justify-center gap-4 mt-10 max-w-xl w-full"
         >
-          {contacts.map((contact) => (
-            <button
-              key={contact.title}
-              onClick={() => {
-                if (!contact.isEmail) {
-                  window.open(contact.value, '_blank', 'noopener,noreferrer');
-                } else {
-                  window.location.href = `mailto:${contact.value}`;
-                }
-              }}
-              className="group flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface py-6 transition-all duration-300 hover:border-accent/50 hover:shadow-glow hover:-translate-y-1"
-            >
-              <img
-                src={contact.icon}
-                alt={contact.title}
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-[13px] text-muted group-hover:text-foreground transition-colors duration-300">
-                {contact.title}
-              </span>
-            </button>
-          ))}
+          {contacts.map((contact) => {
+            const linkClassName =
+              'group flex flex-col items-center justify-center gap-2 rounded-2xl border border-border bg-surface py-6 w-32 transition-all duration-300 hover:border-accent/50 hover:shadow-glow hover:-translate-y-1';
+
+            if (contact.isEmail) {
+              return (
+                <a
+                  key={contact.title}
+                  href={`mailto:${contact.value}`}
+                  className={linkClassName}
+                >
+                  <img
+                    src={contact.icon}
+                    alt={contact.title}
+                    className="w-8 h-8 object-contain"
+                  />
+                  <span className="text-[13px] text-muted group-hover:text-foreground transition-colors duration-300">
+                    {contact.title}
+                  </span>
+                </a>
+              );
+            }
+
+            return (
+              <a
+                key={contact.title}
+                href={contact.value}
+                target="_blank"
+                rel="noopener noreferrer me"
+                className={linkClassName}
+              >
+                <img
+                  src={contact.icon}
+                  alt={contact.title}
+                  className="w-8 h-8 object-contain"
+                />
+                <span className="text-[13px] text-muted group-hover:text-foreground transition-colors duration-300">
+                  {contact.title}
+                </span>
+              </a>
+            );
+          })}
         </motion.div>
       </div>
     </div>
