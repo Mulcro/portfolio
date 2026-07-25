@@ -50,7 +50,7 @@ const Navbar = () => {
             window.scrollTo(0, 0);
           }}
         >
-          <img src={logo} alt="website logo" className="w-8 h-8 object-contain" />
+          <img src={logo} alt="Mulero Alamou" className="w-8 h-8 object-contain" />
           <p className="text-foreground text-[16px] font-display font-semibold cursor-pointer flex">
             Mulero&nbsp;<span className="sm:block hidden text-muted">| Alamou</span>
           </p>

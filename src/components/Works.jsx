@@ -21,12 +21,15 @@ const ProjectCard = ({ project, index }) => {
             alt={project.name}
             className="w-full h-[200px] object-cover rounded-xl"
           />
-          <div
-            onClick={() => window.open(project.source_code_link, '_blank', 'noopener,noreferrer')}
+          <a
+            href={project.source_code_link}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`View ${project.name} project`}
             className="absolute top-3 right-3 bg-bg/80 backdrop-blur w-10 h-10 rounded-full flex justify-center items-center cursor-pointer hover:bg-accent-gradient transition-colors duration-300"
           >
-            <img src={webb} alt="link to project" className="w-1/2 h-1/2 object-contain" />
-          </div>
+            <img src={webb} alt="" className="w-1/2 h-1/2 object-contain" aria-hidden="true" />
+          </a>
         </div>
 
         <div className="mt-5">
